@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Month</th>
+          <th>Staring Balance</th>
+          <th>Monthly Payment</th>
+          <th>Monthly Interest</th>
+          <th>Principal</th>
+          <th>Ending Balance</th>
+          <th>Total Interest</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for item in amortization_list %}
+          <tr>
+            <td><b>{{ item.index }}</b></td>
+            <td> {{ item.starting_balance }}</td>
+            <td>{{ item.monthly_payment }}</td>
+            <td>{{ item.monthly_interest }}</td>
+            <td>{{ item.principal }}</td>
+            <td>{{ item.ending_balance }}</td>
+            <td>{{ item.total_interest }}</td>
+          </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}
