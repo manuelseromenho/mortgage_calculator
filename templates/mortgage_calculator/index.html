@@ -2,18 +2,13 @@
 
 
 {% block content %}
-  <h1>Mortgage Calc</h1>
+  <div style='left:10%'>
+    <h1>Mortgage Calc</h1>
 
-  <form action="" method="post">
-	  {% csrf_token %}
-	  {% for element in form %}
-	  	<br/>
-		  {{element.help_text}}
-	  	{{element}}
-	  {% endfor %}
-	  <br/>
-	  <input type="submit" name="totals" value="Submit"/>
-    <input type="submit" name="lists" value="Get Lists"/>
-  </form>
-  
+    <h2>Welcome to Mortgage Calc</h2>
+  </div>
+  <a href="{% url 'submitformdata' %}" class="w3-btn w3-black">Calc loan monthly payment and list of payments</a>
+  <a href="{% url 'submitformdata' %}" class="w3-btn w3-black">Calc number of payments</a>
+
+
 {% endblock content %}

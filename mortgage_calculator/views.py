@@ -1,4 +1,6 @@
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.views import View
 from django.views.generic import FormView
 
 from mortgage_calculator.forms import MortgageCalcForm
@@ -14,8 +16,13 @@ to select the compounding interval (Monthly, Weekly, Daily, Continually).
 """
 
 
+class HomeView(View):
+	def get(self, request):
+		return render(request, 'mortgage_calculator/index.html')
+
+
 class SubmitFormData(FormView):
-	template_name = "mortgage_calculator/index.html"
+	template_name = "mortgage_calculator/mortgage_calc.html"
 	form_class = MortgageCalcForm
 
 	def form_valid(self, form):
