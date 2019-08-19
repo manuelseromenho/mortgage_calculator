@@ -5,12 +5,12 @@ from math import log10
 
 class MortgageAccount:
 
-	def __init__(self, owner="nobody", loan=0, number_years_payment=0, interest=0, loan_payment=0):
+	def __init__(self, owner="nobody", loan=0, number_years_payment=0, interest=0, loan_monthly_payment=0):
 		self.owner = owner
 		self.loan = loan
 		self.number_years_payment = number_years_payment
 		self.interest = interest
-		self.loan_payment = loan_payment
+		self.loan_monthly_payment = loan_monthly_payment
 
 	@property
 	def periodic_interest_rate(self):
@@ -31,7 +31,7 @@ class MortgageAccount:
 
 	@property
 	def calc_number_periodic_payments(self):
-		N1 = -log10(1-(self.interest*self.loan)/self.loan_payment)
+		N1 = -log10(1-(self.interest*self.loan)/self.loan_monthly_payment)
 		N2 = log10(1+self.interest)
 		return N1/N2
 
