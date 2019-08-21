@@ -1,9 +1,9 @@
 from django import forms
 
 PAYMENT_PERIOD_CHOICES = (
-	(12, 'monthly'),
-	(52, 'weekly'),
-	(365, 'dayly'),
+	('12', 'Monthly'),
+	('52', 'Weekly'),
+	('365', 'Daily'),
 )
 
 

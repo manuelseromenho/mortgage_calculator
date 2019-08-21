@@ -25,6 +25,13 @@ class SubmitFormData(FormView):
 	template_name = "mortgage_calculator/mortgage_calc.html"
 	form_class = MortgageCalcForm
 
+	def __init__(self, *args, **kargs):
+		self.form = super(SubmitFormData, self).__init__(*args, **kargs)
+
+
+	# def get_form(self, *args, **kwargs):
+
+
 	def form_valid(self, form):
 		name = form.cleaned_data['name_account']
 		loan = form.cleaned_data['loan_value']
@@ -39,12 +46,14 @@ class SubmitFormData(FormView):
 			account_created = MortgageAccount(name, loan, number_years_payment, interest)
 			result = account_created.calc_loan_payment
 
+			#dict(bf.field.choices).get(int(bf.data))
+
 			context = {
 				'name': name,
 				'loan': loan,
 				'time': number_years_payment,
 				'interest': interest,
-				'payment_period': payment_period,
+				'payment_period': dict(form['payment_period'].field.choices).get(form['payment_period'].data),
 				'result': round(result, 2),
 			}
 			return render(self.request, 'mortgage_calculator/totals.html', context)
