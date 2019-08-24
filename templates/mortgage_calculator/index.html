@@ -2,15 +2,25 @@
 
 
 {% block content %}
-  <div style='left:10%'>
-    <h1>Mortgage Calc</h1>
+  <main role="main" class="flex-shrink-0">
+    <div class="container">
 
-    <h2>Welcome to Mortgage Calc</h2>
-  </div>
-  <a href="{% url 'submitformdata' %}" class="w3-btn w3-black">Calc loan monthly payment and list of payments</a>
-  <br/>
-  <br/>
-  <a href="{% url 'submitformdata_number_payments' %}" class="w3-btn w3-black">Calc number of payments</a>
+        <a href="{% url 'submitformdata' %}" class="w3-btn w3-black">Calc loan monthly payment and list of payments</a>
+        <br/>
+        <br/>
+        <a href="{% url 'submitformdata_number_payments' %}" class="w3-btn w3-black">Calc number of payments</a>
+    </div>
+  </main>
+
 
 
 {% endblock content %}
+
+{% block footer %}
+<footer class="footer mt-auto py-3">
+  <div class="container">
+    <span class="text-muted">Place sticky footer content here.</span>
+  </div>
+</footer>
+
+{% endblock footer %}

@@ -1,8 +1,6 @@
-{% extends "base.html" %}
-
+{% extends "mortgage_calculator/index.html" %}
 
 {% block content %}
-  <h1>Mortgage Calc</h1>
 
   <form action="" method="post">
 	  {% csrf_token %}
@@ -15,5 +13,5 @@
 	  <input type="submit" name="totals" value="Submit"/>
     <input type="submit" name="lists" value="Get Lists"/>
   </form>
-  
+
 {% endblock content %}

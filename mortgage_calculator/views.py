@@ -28,9 +28,11 @@ class SubmitFormData(FormView):
 	def __init__(self, *args, **kargs):
 		self.form = super(SubmitFormData, self).__init__(*args, **kargs)
 
-
 	# def get_form(self, *args, **kwargs):
 
+	# def form_invalid(self, form):
+	# 	print("HELLO")
+	# 	return render(self.request, 'mortgage_calculator/totals.html')
 
 	def form_valid(self, form):
 		name = form.cleaned_data['name_account']
@@ -43,7 +45,7 @@ class SubmitFormData(FormView):
 
 		if 'totals' in self.request.POST:
 
-			account_created = MortgageAccount(name, loan, number_years_payment, interest)
+			account_created = MortgageAccount(name, loan, number_years_payment, interest, payment_period)
 			result = account_created.calc_loan_payment
 
 			#dict(bf.field.choices).get(int(bf.data))
@@ -132,94 +134,3 @@ class SubmitFormDataNumberPayments(FormView):
 				'number_payments': round(number_payments, 2),
 			}
 			return render(self.request, 'mortgage_calculator/totals.html', context)
-
-
-
-
-
-
-"""
-def home(request):
-
-	if request.method == 'POST' and 'totals' in request.POST:
-		form = MortgageCalcForm(request.POST)
-
-		if form.is_valid():
-			name = form.cleaned_data['name_account']
-			loan = form.cleaned_data['loan_value']
-			number_years_payment = form.cleaned_data['number_years_payment']
-			interest = form.cleaned_data['interest']
-
-			account_created = MortgageAccount(name, loan, number_years_payment, interest)
-			result = account_created.calc_loan_payment
-
-			context = {
-				'name': name,
-				'loan': loan,
-				'time': number_years_payment,
-				'interest': interest,
-				'result': round(result, 2),
-			}
-
-			return render(request, 'main/totals.html', context)
-
-	elif request.method == 'POST' and 'lists' in request.POST:
-		form = MortgageCalcForm(request.POST)
-
-		if form.is_valid():
-			name = form.cleaned_data['name_account']
-			loan = form.cleaned_data['loan_value']
-			number_years_payment = form.cleaned_data['number_years_payment']
-			interest = form.cleaned_data['interest']
-
-			account_created = MortgageAccount(name, loan, number_years_payment, interest)
-			result = account_created.calc_loan_payment
-
-			percent_interest = interest / 100
-			monthly_interest = (loan * (percent_interest / 12))
-			principal = (result - monthly_interest)
-			ending_balance = loan - principal
-			total_interest = monthly_interest
-
-			index = 1
-
-			amortization_list = []
-
-			starting_balance = loan
-			while (starting_balance - result) > 0:
-				if index > 1:
-					starting_balance = ending_balance
-				monthly_interest = starting_balance * (percent_interest / 12)
-				principal = result - monthly_interest
-
-				if index > 1:
-					ending_balance -= principal
-					total_interest += monthly_interest
-
-				amortization_list.append({
-					'index': index,
-					'starting_balance': round(starting_balance, 2),
-					'monthly_payment': round(result, 2),
-					'monthly_interest': round(monthly_interest, 2),
-					'principal': round(principal, 2),
-					'ending_balance': abs(round(ending_balance, 2)),
-					'total_interest': round(total_interest, 2),
-				})
-
-				index += 1
-
-			context = {
-				'amortization_list': amortization_list,
-			}
-
-			return render(request, 'main/loan_amortization.html', context)
-	else:
-		form = MortgageCalcForm()
-
-		context = {
-			'form': form,
-		}
-		
-	return render(request, 'main/index.html', context)
-
-"""

@@ -5,20 +5,21 @@ from math import log10
 
 class MortgageAccount:
 
-	def __init__(self, owner="nobody", loan=0, number_years_payment=0, interest=0, loan_monthly_payment=0):
+	def __init__(self, owner="nobody", loan=0, number_years_payment=0, interest=0, loan_monthly_payment=0, payment_period=12):
 		self.owner = owner
 		self.loan = loan
 		self.number_years_payment = number_years_payment
 		self.interest = interest
 		self.loan_monthly_payment = loan_monthly_payment
+		self.payment_period = payment_period
 
 	@property
 	def periodic_interest_rate(self):
-		return (self.interest/100)/12
+		return (self.interest/100)/self.payment_period
 
 	@property
 	def number_periodic_payments(self):
-		return self.number_years_payment*12
+		return self.number_years_payment*self.payment_period
 
 	@property
 	def discount_factor(self):

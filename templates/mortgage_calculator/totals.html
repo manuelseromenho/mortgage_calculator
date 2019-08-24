@@ -1,31 +1,30 @@
-{% extends "base.html" %}
+{% extends "mortgage_calculator/index.html" %}
 
 {% block content %}
-  <table>
-    <tr></tr>
-  </table>
   <h1>RESULT:</h1>
   {% if number_payments_true %}
     Name: {{ name }}
     <br/>
-    Loan value: {{ loan }}
+    Loan value: {{ loan }} €
     <br/>
     Number of payments: {{ number_payments }}
     <br/>
-    Value for the interest: {{ interest }}
+    Value for the interest: {{ interest }} %
     <br/>
-    Monthly Payment: {{ loan_monthly_payment }}
+    Monthly Payment: {{ loan_monthly_payment }} €
   {% else %}
     Name: {{ name }}
     <br/>
-    Loan value: {{ loan }}
+    Loan value: {{ loan }} €
     <br/>
-    Time for loan payment: {{ time }}
+    Time for loan payment: {{ time }} years
     <br/>
     Payment period: {{ payment_period }}
     <br/>
-    Value for the interest: {{ interest }}
+    Value for the interest: {{ interest }} %
     <br/>
-    Monthly Payment: {{ result }}
+    Monthly Payment: {{ result }} €
   {% endif %}
 {% endblock %}
+
+
