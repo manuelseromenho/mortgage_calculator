@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'mortgage_calculator',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -78,3 +79,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+# Crispy Forms Settings
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -1,4 +1,6 @@
 from django import forms
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit, Row, Column
 
 PAYMENT_PERIOD_CHOICES = (
 	('12', 'Monthly'),
@@ -19,6 +21,31 @@ class MortgageCalcForm(forms.Form):
 		widget=forms.Select(),
 		required=True
 	)
+
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.helper = FormHelper()
+		self.helper.layout = Layout(
+			Row(
+				Column('name_account', css_class='form-group col-md-6 mb-0'),
+				Column('loan_value', css_class='form-group col-md-6 mb-0'),
+				css_class='form-row'
+			),
+			Row(
+				Column('number_years_payment', css_class='form-group col-md-4 mb-0'),
+				Column('interest', css_class='form-group col-md-4 mb-0'),
+				Column('payment_period', css_class='form-group col-md-4 mb-0'),
+				css_class='form-row'
+			),
+
+			Submit('totals', 'Totals'),
+			Submit('lists', 'Get List')
+		)
+
+		# Customize the help text and label
+		for fieldname in ['name_account', 'loan_value', 'number_years_payment', 'interest']:
+			self.fields[fieldname].help_text = None
+			# self.fields['fieldname'].label = fieldname + ":"
 
 
 class MortgageCalcNumberPaymentsForm(forms.Form):
