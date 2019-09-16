@@ -1,4 +1,4 @@
-from math import log10
+from math import log10, log
 
 # https://brownmath.com/bsci/loan.htm#Derive3
 
@@ -32,8 +32,9 @@ class MortgageAccount:
 
 	@property
 	def calc_number_periodic_payments(self):
-		N1 = -log10(1-(self.interest*self.loan)/self.loan_monthly_payment)
-		N2 = log10(1+self.interest)
+		interest_percent = self.interest*0.01
+		N1 = -log(1-interest_percent*self.loan/(self.loan_monthly_payment*12))
+		N2 = log(1+interest_percent)
 		return N1/N2
 
 	def __str__(self):

@@ -12,6 +12,8 @@ ALLOWED_HOSTS = ['*']
 X_FRAME_OPTIONS = 'ALLOW ALL'
 
 INSTALLED_APPS = [
+    'crispy_forms',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -20,7 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'mortgage_calculator',
-    'crispy_forms',
+
 ]
 
 MIDDLEWARE = [

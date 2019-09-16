@@ -2,6 +2,8 @@ from django import forms
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column
 
+# https://snakeycode.wordpress.com/2015/02/14/multisection-django-bootstrap-forms-using-crispy/
+
 PAYMENT_PERIOD_CHOICES = (
 	('12', 'Monthly'),
 	('52', 'Weekly'),
@@ -54,3 +56,24 @@ class MortgageCalcNumberPaymentsForm(forms.Form):
 	interest = forms.FloatField(help_text="Enter the interest", initial=6)
 	loan_payment = forms.FloatField(help_text="Enter the monthly payment", initial=599.55)
 
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.helper = FormHelper()
+		self.helper.layout = Layout(
+			Row(
+				Column('name_account', css_class='form-group col-md-6 mb-0'),
+				Column('loan_value', css_class='form-group col-md-6 mb-0'),
+				css_class='form-row'
+			),
+			Row(
+				Column('interest', css_class='form-group col-md-6 mb-0'),
+				Column('loan_payment', css_class='form-group col-md-6 mb-0'),
+				css_class='form-row'
+			),
+
+			Submit('totals', 'Totals'),
+		)
+
+		# Customize the help text and label
+		for fieldname in ['name_account', 'loan_value', 'interest', 'loan_payment']:
+			self.fields[fieldname].help_text = None
