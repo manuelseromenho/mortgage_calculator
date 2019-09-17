@@ -5,17 +5,18 @@ from math import log10, log
 
 class MortgageAccount:
 
-	def __init__(self, owner="nobody", loan=0, number_years_payment=0, interest=0, loan_monthly_payment=0, payment_period=12):
-		self.owner = owner
-		self.loan = loan
-		self.number_years_payment = number_years_payment
-		self.interest = interest
-		self.loan_monthly_payment = loan_monthly_payment
-		self.payment_period = payment_period
+	def __init__(self, **kwargs):
+
+		self.name = kwargs.get('name', 'nobody')
+		self.loan_amount = kwargs.get('loan_amount', 0)
+		self.number_years_payment = kwargs.get('number_years_payment', 0)
+		self.loan_interest = kwargs.get('loan_interest', 0)
+		self.loan_monthly_payment = kwargs.get('loan_monthly_payment', 0)
+		self.payment_period = kwargs.get('payment_period', 12)
 
 	@property
 	def periodic_interest_rate(self):
-		return (self.interest/100)/self.payment_period
+		return (self.loan_interest / 100) / self.payment_period
 
 	@property
 	def number_periodic_payments(self):
@@ -23,19 +24,26 @@ class MortgageAccount:
 
 	@property
 	def discount_factor(self):
-		return (((1+self.periodic_interest_rate)**self.number_periodic_payments)-1)/(self.periodic_interest_rate*(1+self.periodic_interest_rate)**self.number_periodic_payments)
+		discount_factor_numerator = (((1+self.periodic_interest_rate)**self.number_periodic_payments)-1)
+		discount_factor_divisor = (
+				self.periodic_interest_rate*(1+self.periodic_interest_rate)**self.number_periodic_payments
+		)
+		return discount_factor_numerator/discount_factor_divisor
 
 	@property
 	def calc_loan_payment(self):
-		loan_payment = self.loan/self.discount_factor
+		loan_payment = self.loan_amount / self.discount_factor
 		return loan_payment
 
 	@property
 	def calc_number_periodic_payments(self):
-		interest_percent = self.interest*0.01
-		N1 = -log(1-interest_percent*self.loan/(self.loan_monthly_payment*12))
-		N2 = log(1+interest_percent)
-		return N1/N2
+		interest_percent = self.loan_interest * 0.01
+		try:
+			N1 = -log(1 - interest_percent * self.loan_amount / (self.loan_monthly_payment * 12))
+			N2 = log(1+interest_percent)
+			return N1 / N2
+		except ValueError:
+			return None
 
 	def __str__(self):
-		return f"{self.owner}"
+		return f"{self.name}"
