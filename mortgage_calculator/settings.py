@@ -12,6 +12,8 @@ ALLOWED_HOSTS = ['*']
 X_FRAME_OPTIONS = 'ALLOW ALL'
 
 INSTALLED_APPS = [
+    'crispy_forms',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -20,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'mortgage_calculator',
+
 ]
 
 MIDDLEWARE = [
@@ -78,3 +81,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+# Crispy Forms Settings
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

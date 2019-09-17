@@ -1,30 +1,37 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <table border="1">
-      <thead>
-        <tr>
-          <th>Month</th>
-          <th>Staring Balance</th>
-          <th>Monthly Payment</th>
-          <th>Monthly Interest</th>
-          <th>Principal</th>
-          <th>Ending Balance</th>
-          <th>Total Interest</th>
-        </tr>
-      </thead>
-      <tbody>
-      {% for item in amortization_list %}
+  <div class="container">
+    <div class="row">
+
+      <div class="col">
+        <table class="table">
+          <thead class="thead-dark">
           <tr>
-            <td><b>{{ item.index }}</b></td>
-            <td> {{ item.starting_balance }}</td>
-            <td>{{ item.monthly_payment }}</td>
-            <td>{{ item.monthly_interest }}</td>
-            <td>{{ item.principal }}</td>
-            <td>{{ item.ending_balance }}</td>
-            <td>{{ item.total_interest }}</td>
+            <th scope="col">Month</th>
+            <th scope="col">Starting Balance</th>
+            <th scope="col">Monthly Payment</th>
+            <th scope="col">Monthly Interest</th>
+            <th scope="col">Principal</th>
+            <th scope="col">Ending Balance</th>
+            <th scope="col">Total Interest</th>
           </tr>
-      {% endfor %}
-      </tbody>
-    </table>
+          </thead>
+          <tbody>
+          {% for item in amortization_list %}
+            <tr>
+              <td scope="row">{{ item.index }}</td>
+              <td> {{ item.starting_balance }}</td>
+              <td>{{ item.monthly_payment }}</td>
+              <td>{{ item.monthly_interest }}</td>
+              <td>{{ item.principal }}</td>
+              <td>{{ item.ending_balance }}</td>
+              <td>{{ item.total_interest }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 {% endblock %}
