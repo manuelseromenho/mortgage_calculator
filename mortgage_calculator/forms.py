@@ -13,16 +13,20 @@ PAYMENT_PERIOD_CHOICES = (
 
 
 class BaseFormMortgage(forms.Form):
-	name_account = forms.CharField(help_text="Enter the Account Name", initial="joe")
+	name_account = forms.CharField(label="User account name:", help_text="Enter the Account Name", initial="joe")
 	loan_amount = forms.FloatField(help_text="Enter the loan amount", initial=100000)
 	loan_interest = forms.FloatField(help_text="Enter the loan interest", initial=6)
 
 
 class MortgageCalcForm(BaseFormMortgage):
 
-	number_years_payment = forms.IntegerField(help_text="Enter the time for payment(in years)", initial=30)
+	number_years_payment = forms.IntegerField(
+		label="Number of years for payment:",
+		help_text="Enter the time for payment(in years)",
+		initial=30
+	)
 	payment_period = forms.ChoiceField(
-		help_text="Choose Payment Period",
+		help_text="Choose Payment Period Per Year",
 		choices=PAYMENT_PERIOD_CHOICES,
 		initial='monthly',
 		widget=forms.Select(),
@@ -34,13 +38,13 @@ class MortgageCalcForm(BaseFormMortgage):
 		self.helper = FormHelper()
 		self.helper.layout = Layout(
 			Row(
-				Column('name_account', css_class='form-group col-md-5 mb-0'),
-				Column('loan_amount', css_class='form-group col-md-5 mb-0'),
+				Column('name_account', css_class='form-group col-md-6 mb-0'),
+				Column('loan_amount', css_class='form-group col-md-6 mb-0'),
 				css_class='form-row'
 			),
 			Row(
-				Column('number_years_payment', css_class='form-group col-md-3 mb-0'),
-				Column('loan_interest', css_class='form-group col-md-3 mb-0'),
+				Column('number_years_payment', css_class='form-group col-md-4 mb-0'),
+				Column('loan_interest', css_class='form-group col-md-4 mb-0'),
 				Column('payment_period', css_class='form-group col-md-4 mb-0'),
 				css_class='form-row'
 			),
@@ -49,7 +53,7 @@ class MortgageCalcForm(BaseFormMortgage):
 			Submit('lists', 'Get List')
 		)
 
-		# Customize the help text and label
+		# Customize the help text and label for crispy forms
 		for fieldname in ['name_account', 'loan_amount', 'number_years_payment', 'loan_interest']:
 			self.fields[fieldname].help_text = None
 
