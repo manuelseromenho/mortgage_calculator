@@ -1,3 +1,7 @@
 .idea
 venv/
+<<<<<<< HEAD
 __pycache__/
+=======
+__pycache__/
+>>>>>>> ba69db5590db206aee4606ffa559569ca7b2e377
