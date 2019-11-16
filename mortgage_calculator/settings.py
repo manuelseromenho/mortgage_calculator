@@ -9,7 +9,7 @@ DEBUG = True
 
 # SECURITY WARNING: make sure you update this to your websites URL
 ALLOWED_HOSTS = ['*']
-X_FRAME_OPTIONS = 'ALLOW ALL'
+# X_FRAME_OPTIONS = 'ALLOW ALL'
 
 INSTALLED_APPS = [
     'crispy_forms',
