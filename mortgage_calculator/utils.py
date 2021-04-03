@@ -1,6 +1,4 @@
-from math import log10, log
-
-# https://brownmath.com/bsci/loan.htm#Derive3
+from math import log
 
 
 class MortgageAccount:
