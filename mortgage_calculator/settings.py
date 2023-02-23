@@ -1,11 +1,20 @@
 import os
+import environ
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT_DIR = environ.Path(__file__) - 2
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "33el*v@@)zi57r_q_1nrjta^tq6n&8hw(v1w(=)aiw#oe1p9dz"
+env = environ.Env()
+READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=True)
+if READ_DOT_ENV_FILE:
+    env_file = str(ROOT_DIR.path(".env"))
+    print(f"Loading : {env_file}")
+    env.read_env(env_file)
 
-DEBUG = True
+SECRET_KEY = env("DJANGO_SECRET_KEY", default="xxxxxx")
+
+DEBUG = env.bool("DJANGO_DEBUG", default=False)
 
 # SECURITY WARNING: make sure you update this to your websites URL
 ALLOWED_HOSTS = ["*"]
@@ -13,6 +22,7 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     "crispy_forms",
+    "crispy_bootstrap4",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
