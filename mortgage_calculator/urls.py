@@ -1,10 +1,13 @@
-from django.conf.urls import url
 from django.contrib import admin
-from mortgage_calculator.views import SubmitFormData, HomeView, SubmitFormDataNumberPayments
+from django.urls import re_path
+
+from mortgage_calculator.views import HomeView, SubmitFormData, SubmitFormDataNumberPayments
 
 urlpatterns = [
-  url(r'^admin/', admin.site.urls),
-  url(r'^mortgage_calc_monthly_payment', SubmitFormDataNumberPayments.as_view(), name='submitformdata_number_payments'),
-  url(r'^mortgage_calc', SubmitFormData.as_view(), name='submitformdata'),
-  url(r'^$', HomeView.as_view(), name='home')
+    re_path(r"^admin/", admin.site.urls),
+    re_path(
+        r"^mortgage_calc_monthly_payment", SubmitFormDataNumberPayments.as_view(), name="submitformdata_number_payments"
+    ),
+    re_path(r"^mortgage_calc", SubmitFormData.as_view(), name="submitformdata"),
+    re_path(r"^$", HomeView.as_view(), name="home"),
 ]
