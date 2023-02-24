@@ -4,6 +4,9 @@ import environ
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT_DIR = environ.Path(__file__) - 2
+STATIC_URL = "/static/"
+# STATIC_URL = env("DJANGO_STATIC_URL", default="/static/")
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 env = environ.Env()
 READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=True)
@@ -83,9 +86,7 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-STATIC_URL = "/static/"
-# STATIC_URL = env("DJANGO_STATIC_URL", default="/static/")
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
