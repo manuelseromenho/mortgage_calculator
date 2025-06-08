@@ -1,13 +1,14 @@
 from django.contrib import admin
-from django.urls import re_path
+from django.urls import path, include
 
 from mortgage_calculator.views import HomeView, SubmitFormData, SubmitFormDataNumberPayments
 
 urlpatterns = [
-    re_path(r"^admin/", admin.site.urls),
-    re_path(
-        r"^mortgage_calc_monthly_payment", SubmitFormDataNumberPayments.as_view(), name="submitformdata_number_payments"
+    path("admin/", admin.site.urls),
+    path(
+        "mortgage_calc_monthly_payment", SubmitFormDataNumberPayments, name="submitformdata_number_payments"
     ),
-    re_path(r"^mortgage_calc", SubmitFormData.as_view(), name="submitformdata"),
-    re_path(r"^$", HomeView.as_view(), name="home"),
+    path("mortgage_calc", SubmitFormData, name="submitformdata"),
+    path("deploy_autoextending_pa", include("deploy_autoextending_pa.urls")),
+    path("", HomeView, name="home"),
 ]
