@@ -5,7 +5,6 @@ __pycache__/
 
 # Git metadata
 .git/
-.gitignore
 
 # IDEs and editors
 .idea/
