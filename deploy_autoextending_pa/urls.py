@@ -4,7 +4,7 @@ from .views import DeployAutoExtendingPAView
 
 urlpatterns = [
     path(
-        "deploy",
+        "/deploy",
         DeployAutoExtendingPAView.as_view(),
         name="deploy",
     )
