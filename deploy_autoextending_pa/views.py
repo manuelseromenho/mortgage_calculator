@@ -17,8 +17,11 @@ class DeployAutoExtendingPAView(View):
 
         try:
             project_dir = "/home/manuelseromenho/autoextending"
-            subprocess.check_call(
-                f"cd {project_dir} && git pull origin master", shell=True
+            subprocess.run(
+                f"GIT_SSH_COMMAND='ssh -i /home/manuelseromenho/.ssh/id_rsa_deploy' cd {project_dir} "
+                f"&& git pull origin master",
+                shell=True,
+                check=True,
             )
 
             return JsonResponse({"status": "success"})
