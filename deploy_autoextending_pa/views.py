@@ -1,13 +1,13 @@
 import os
 import subprocess
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseForbidden, HttpResponseNotAllowed
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 
-@method_decorator(csrf_exempt, name='dispatch')
+@method_decorator(csrf_exempt, name="dispatch")
 class DeployAutoExtendingPAView(View):
     def post(self, request, *args, **kwargs):
         secret = os.environ.get("DEPLOY_SECRET")
@@ -17,16 +17,8 @@ class DeployAutoExtendingPAView(View):
 
         try:
             project_dir = "/home/manuelseromenho/autoextending"
-            subprocess.check_call(f"cd {project_dir} && git pull origin master", shell=True)
-
-            username = os.environ.get("PA_USERNAME")
-            domain = os.environ.get("PA_DOMAIN")
-            token = os.environ.get("PA_API_TOKEN")
-
             subprocess.check_call(
-                f"curl -X POST https://www.pythonanywhere.com/api/v0/user/{username}/webapps/{domain}/reload/"
-                f" -H 'Authorization: Token {token}'",
-                shell=True,
+                f"cd {project_dir} && git pull origin master", shell=True
             )
 
             return JsonResponse({"status": "success"})
@@ -34,5 +26,4 @@ class DeployAutoExtendingPAView(View):
             return JsonResponse({"status": "error", "message": str(e)}, status=500)
 
     def get(self, request, *args, **kwargs):
-        return HttpResponseNotAllowed(['POST'])
-
+        return HttpResponseNotAllowed(["POST"])

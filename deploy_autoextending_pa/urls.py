@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import deploy_autoextending_pa
+
+from .views import DeployAutoExtendingPAView
 
 urlpatterns = [
     path(
-        "deploy_autoextending_pa/",
-        deploy_autoextending_pa,
-        name="deploy_autoextending_pa",
+        "deploy",
+        DeployAutoExtendingPAView.as_view(),
+        name="deploy",
     )
 ]
