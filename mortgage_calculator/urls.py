@@ -8,13 +8,13 @@ from mortgage_calculator.views import (
 )
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("admin", admin.site.urls),
     path(
         "mortgage_calc_monthly_payment",
-        SubmitFormDataNumberPayments,
+        SubmitFormDataNumberPayments.as_view(),
         name="submitformdata_number_payments",
     ),
-    path("mortgage_calc", SubmitFormData, name="submitformdata"),
+    path("mortgage_calc", SubmitFormData.as_view(), name="submitformdata"),
     path("deploy_autoextending_pa", include("deploy_autoextending_pa.urls")),
-    path("", HomeView, name="home"),
+    path("", HomeView.as_view(), name="home"),
 ]
