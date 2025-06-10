@@ -1,30 +1,38 @@
-import os, subprocess
-from django.http import JsonResponse, HttpResponseForbidden
+import os
+import subprocess
+
+from django.http import JsonResponse
+from django.utils.decorators import method_decorator
+from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
 
-@csrf_exempt
-def deploy_autoextending_pa(request):
-    secret = os.environ.get("DEPLOY_SECRET")
-    auth = request.headers.get("Authorization")
-    if auth != f"Bearer {secret}":
-        return HttpResponseForbidden("Forbidden")
+@method_decorator(csrf_exempt, name='dispatch')
+class DeployAutoExtendingPAView(View):
+    def post(self, request, *args, **kwargs):
+        secret = os.environ.get("DEPLOY_SECRET")
+        auth = request.headers.get("Authorization")
+        if auth != f"Bearer {secret}":
+            return HttpResponseForbidden("Forbidden")
 
-    try:
-        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        print(BASE_DIR)
-        subprocess.check_call(f"cd {BASE_DIR} && git pull", shell=True)
+        try:
+            project_dir = "/home/manuelseromenho/autoextending"
+            subprocess.check_call(f"cd {project_dir} && git pull origin master", shell=True)
 
-        username = os.environ.get("PA_USERNAME")
-        domain = os.environ.get("PA_DOMAIN")
-        token = os.environ.get("PA_API_TOKEN")
+            username = os.environ.get("PA_USERNAME")
+            domain = os.environ.get("PA_DOMAIN")
+            token = os.environ.get("PA_API_TOKEN")
 
-        subprocess.check_call(
-            f"curl -X POST https://www.pythonanywhere.com/api/v0/user/{username}/webapps/{domain}/reload/"
-            f" -H 'Authorization: Token {token}'",
-            shell=True,
-        )
+            subprocess.check_call(
+                f"curl -X POST https://www.pythonanywhere.com/api/v0/user/{username}/webapps/{domain}/reload/"
+                f" -H 'Authorization: Token {token}'",
+                shell=True,
+            )
 
-        return JsonResponse({"status": "success"})
-    except subprocess.CalledProcessError as e:
-        return JsonResponse({"status": "error", "message": str(e)}, status=500)
+            return JsonResponse({"status": "success"})
+        except subprocess.CalledProcessError as e:
+            return JsonResponse({"status": "error", "message": str(e)}, status=500)
+
+    def get(self, request, *args, **kwargs):
+        return HttpResponseNotAllowed(['POST'])
+
