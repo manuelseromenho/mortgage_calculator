@@ -3,41 +3,7 @@
 
 {% block content %}
   {% crispy form %}
-
   {% if error_math %}
     <span style="color: red">{{ error_math }}</span>
   {% endif %}
-
-{#  <form action="" method="post">#}
-{#	  {% csrf_token %}#}
-{##}
-{##}
-{##}
-{#	  {% for element in form %}#}
-{#      {% if forloop.counter == 0 %}#}
-{##}
-{##}
-{#      {% endif %}#}
-{#      <div class="row">#}
-{##}
-{##}
-{#      {% if forloop.counter|divisibleby:2 %} <section>{% endif %}#}
-{##}
-{#        {{element.help_text}}#}
-{##}
-{#        <div class="col-6 ">#}
-{#          {{element.label}}#}
-{#          {{element}}#}
-{#        </div>#}
-{##}
-{##}
-{#      </div>#}
-{##}
-{#	  {% endfor %}#}
-{##}
-{#	  <br/>#}
-{#	  <input type="submit" name="totals" value="Submit"/>#}
-{#    <input type="submit" name="lists" value="Get Lists"/>#}
-{#  </form>#}
-
 {% endblock content %}

@@ -1,6 +1,4 @@
-from math import log10, log
-
-# https://brownmath.com/bsci/loan.htm#Derive3
+from math import log
 
 
 class MortgageAccount:
@@ -37,11 +35,22 @@ class MortgageAccount:
 
 	@property
 	def calc_number_periodic_payments(self):
+		"""Calculates the number of periodic payments with loan interest, loan amount and loan monthly payment
+
+		Parameters:
+		loan_interest
+		loan_amount
+		loan_monthly_payment
+
+		Returns:
+		number_periodic_payments
+		"""
 		interest_percent = self.loan_interest * 0.01
 		try:
 			N1 = -log(1 - interest_percent * self.loan_amount / (self.loan_monthly_payment * 12))
 			N2 = log(1+interest_percent)
-			return N1 / N2
+			number_periodic_payments = (N1/N2)*12
+			return number_periodic_payments
 		except ValueError:
 			return None
 
