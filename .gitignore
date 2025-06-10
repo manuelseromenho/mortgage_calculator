@@ -1,5 +1,27 @@
-.idea
-venv/
-__pycache__/
 .env
-staticfiles/
+venv/
+*.pyc
+__pycache__/
+
+# Git metadata
+.git/
+.gitignore
+
+# IDEs and editors
+.idea/
+.idea
+.vscode/
+
+# OS junk files
+.DS_Store
+Thumbs.db
+
+# PythonAnywhere logs or temp files (if any)
+*.log
+
+# Tests and artifacts
+coverage/
+*.coverage
+dist/
+build/
+*.egg-info/
