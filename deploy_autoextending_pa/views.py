@@ -12,6 +12,7 @@ def deploy_autoextending_pa(request):
 
     try:
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        print(BASE_DIR)
         subprocess.check_call(f"cd {BASE_DIR} && git pull", shell=True)
 
         username = os.environ.get("PA_USERNAME")
